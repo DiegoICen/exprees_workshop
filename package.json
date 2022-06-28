@@ -1,0 +1,30 @@
+{
+  "name": "express-workshop-2022-1",
+  "version": "1.0.0",
+  "description": "AN API REST USING EXPRESS JS",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index", //Poner el start es una buena practica porque solo se tiene
+    //poner npm start y listo, no sabes como se llamen el index.js al final    
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+"
+  },
+  "keywords": [
+    "api",
+    "rest",
+    "express",
+    "node.js"
+  ],
+  "author": "DiegoICEGLEZ",
+  "license": "ISC",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": "",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
