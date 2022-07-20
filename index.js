@@ -1,9 +1,10 @@
-const bodyParser = require('body-parser');
+const morgan = require('morgan'); //Morgan es un middleware que te indicara si llega o no una peticion, OJO solo usala en produccion.
 const express = require('express');
 const app = express();
-const {pokemon} = require('./pokedex.json');
+const pokemon = require('./routes/pokemon.js');
 
-app.use(express.json()); //Use espara que se le aplique una funcion a todas las peticiones
+app.use(morgan('dev'));
+app.use(express.json()); //Use espara que se le aplique una funcion a todas las peticiones, un middleware
 app.use(express.urlencoded({ extrended:true}));
 
 
@@ -14,62 +15,22 @@ app.use(express.urlencoded({ extrended:true}));
     res.send("Bienvenido al servidor perro");
 })*/
 
-/*
+/*Verbos HTTP, los mas usados son:
 GET - Obtener recursos
 POST - almacenar/crear recursos
 PATH - modificar un oarte de un recurso
 PUT - modifica un recurso
-DELETE - borrar recurso 
-
-*/
+DELETE - borrar recurso */
 
 app.get("/", (req, res, next) => {
-    res.status(200).send("Bienvenidos al Pokedex");
+    res.status(200).json({code: 1, message: "Bienvenidos al Pokedex"})
 });
 
-app.post("/pokemon/", (req, res, next) => {
-    return res.status(200).send(req.body);
-})
+app.use("/pokemon", pokemon);
 
-app.get("/pokemon", (req, res, next) => {
-    //console.log(req.params.name);
-    res.status(200).send(pokemon);
+app.use((req,res,next) => {
+    return res.status(404).json({code : 404, message: "URL no encontrada"});
 });
-
-app.get("/pokemon/:id([0-9]{1,3})", (req, res, next) =>{ //Poque tiene el regex funciona antes del all?
-    const id = req.params.id - 1;
-    if(id >= 0 && id <= 150) {
-        res.status(200).send(pokemon[req.params.id - 1]); //Si se pusiera return se quita el "else"
-    }
-    else{
-        res.status(404).send("Pokemon no existente");
-    }
-});
-
-app.get('/pokemon/:name([A-Za-z]+)', (req, res, next) => {
-    const name = req.params.name;  
-    /*Metodo Filter*/
-    const pk = pokemon.filter((p) => {
-        return (p.name.toUpperCase() == name.toUpperCase()) && p; 
-        /*Esto es un operador ternario o como Mau dice IF fresa de una sola linea
-        la formula sería... "condicion ? valor si verdadero : valor si falso"*/
-
-        ///////////////////////////////////////////////////////////////////////        
-        /* ---Esto es el IF clásico --
-        if(p.name.toUpperCase() == name.toUpperCase()){
-            return p;
-        }*/ 
-        ///////////////////////////////////////////////////////////////////////
-    });
-    //console.log(pk);
-
-    (pk.length > 0) ?  
-        res.status(200).send(pk) : 
-        res.status(404).send("Pokemon no existe");
-}); 
-
-/*
-Verbos HTTP, Los mas usados son: GET,POST,PATCH,PUT,DELETE*/
 
 app.listen(process.env.PORT || 3000,() => {
     console.log("SERVER IS RUNNING")
