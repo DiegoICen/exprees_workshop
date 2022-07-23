@@ -33,7 +33,7 @@ user.post("/login", async (req, res, next) => { //Log in siempre sera por POST n
             return res.status(200).json({code: 200, message: token });
         }
         else {
-            return res.status(401).json({code: 401, message: "Usuario y/o contraseña incorrecta"});
+            return res.status(200).json({code: 401, message: "Usuario y/o contraseña incorrecta"});
         }
     }
     return res.status(500).json({code: 500, message: "Campos incompletos"});

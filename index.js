@@ -6,9 +6,9 @@ const app = express();
 const pokemon = require('./routes/pokemon.js');
 const user = require('./routes/user.js');
 const auth = require('./middleware/auth.js');
-const notFound = require('./middleware/notFound.js')
-const index = require('./middleware/index.js')
-
+const notFound = require('./middleware/notFound.js');
+const index = require('./middleware/index.js');
+const cors = require('./middleware/cors.js');
 /*Verbos HTTP, los mas usados son:
 GET - Obtener recursos
 POST - almacenar/crear recursos
@@ -17,6 +17,7 @@ PUT - modifica un recurso
 DELETE - borrar recurso */
 
 //Loa Middelware
+app.use(cors);
 app.use(morgan('dev'));
 app.use(express.json()); //Use espara que se le aplique una funcion a todas las peticiones, un middleware
 app.use(express.urlencoded({ extrended:true}));
