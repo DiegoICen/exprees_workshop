@@ -1,5 +1,5 @@
 {
-  "name": "express-workshop-2022-1",
+  "name": "express_workshop",
   "version": "1.0.0",
   "description": "AN API REST USING EXPRESS JS",
   "main": "index.js",
