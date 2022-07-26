@@ -22,7 +22,11 @@ app.use(morgan('dev'));
 app.use(express.json()); //Use espara que se le aplique una funcion a todas las peticiones, un middleware
 app.use(express.urlencoded({ extrended:true}));
 
-app.get("/", index); //La bienvenida a la API
+//app.get("/", index); //La bienvenida a la API, peeero, asi como esta no le gusto a keroku
+app.get("/", (req, res, next) => {
+    res.status(200);
+    res.send("Hola Mundo");
+})
 /*app.get("/", (req //Toda la ifo se almacenara en req
 ,res //la respuesta que nosotros vamos a dar
 ,next) =>{
