@@ -8,7 +8,7 @@ user.post ("/signin" , async (req,res,next) => {
 
     if(user_name && user_mail && user_password) {
         let  query = "INSERT INTO user(user_name, user_mail, user_password) "
-        query += `VALUES ('${user_name}', '${user_mail}', '${user_password};')`;    
+        query += `VALUES ('${user_name}', '${user_mail}', '${user_password}')`;    
         const rows = await db.query(query);
     
         if(rows.affectedRows == 1){
